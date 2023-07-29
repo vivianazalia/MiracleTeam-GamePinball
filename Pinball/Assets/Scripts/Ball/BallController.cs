@@ -28,9 +28,14 @@ public class BallController : MonoBehaviour
     {
         if(other.tag == "Out Area")
         {
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            transform.position = spawnPosition.position;
+            ResetPosition();
         }
+    }
+
+    public void ResetPosition()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        transform.position = spawnPosition.position;
     }
 }

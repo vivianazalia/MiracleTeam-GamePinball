@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CoinSpawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
-    [System.Serializable]
-    private class SpawnPosition
-    {
-        public Transform position;
-        public bool empty;
-    }
-
+    [SerializeField]
+    private SpawnerType type;
     [SerializeField]
     private GameObject prefab;
     [SerializeField]
@@ -19,20 +14,9 @@ public class CoinSpawner : MonoBehaviour
 
     [SerializeField] private int count;
 
-    public static UnityAction OnChangeCoinCount;
-    public static UnityAction<Vector3> OnEmptySpawnPosition;
-
-    private void Awake()
-    {
-        OnChangeCoinCount += CoinDestroy;
-        OnEmptySpawnPosition += EmptyPosition;
-    }
-
-    private void OnDestroy()
-    {
-        OnChangeCoinCount -= CoinDestroy;
-        OnEmptySpawnPosition -= EmptyPosition;
-    }
+    public SpawnerType Type { get => type; }
+    public int Count { get => count; set => count = value; }
+    public List<SpawnPosition> Positions { get => spawnTransform; }
 
     private void Start()
     {
@@ -48,11 +32,6 @@ public class CoinSpawner : MonoBehaviour
             FillPosition(spawn);
             count++;
         }
-    }
-
-    private void CoinDestroy()
-    {
-        count--;
     }
 
     private SpawnPosition CheckEmptySpawnerPosition()
@@ -81,15 +60,17 @@ public class CoinSpawner : MonoBehaviour
             }
         }
     }
+}
 
-    private void EmptyPosition(Vector3 position)
-    {
-        foreach(var spawn in spawnTransform)
-        {
-            if(spawn.position.position == position)
-            {
-                spawn.empty = true;
-            }
-        }
-    }
+public enum SpawnerType
+{
+    Coin,
+    Trap
+}
+
+[System.Serializable]
+public class SpawnPosition
+{
+    public Transform position;
+    public bool empty;
 }
