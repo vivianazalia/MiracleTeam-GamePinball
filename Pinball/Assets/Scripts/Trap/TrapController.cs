@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinController : MonoBehaviour
+public class TrapController : MonoBehaviour
 {
     private void Start()
     {
@@ -11,11 +11,12 @@ public class CoinController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Bola")
+        if (other.tag == "Bola")
         {
+            other.GetComponent<BallController>().ResetPosition();
             gameObject.SetActive(false);
-            SpawnerManager.OnChangeCoinCount?.Invoke("Coin");
-            SpawnerManager.OnEmptySpawnPosition?.Invoke(transform.position, "Coin");
+            SpawnerManager.OnChangeCoinCount?.Invoke("Trap");
+            SpawnerManager.OnEmptySpawnPosition?.Invoke(transform.position, "Trap");
         }
     }
 
@@ -23,7 +24,7 @@ public class CoinController : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         gameObject.SetActive(false);
-        SpawnerManager.OnChangeCoinCount?.Invoke("Coin");
-        SpawnerManager.OnEmptySpawnPosition?.Invoke(transform.position, "Coin");
+        SpawnerManager.OnChangeCoinCount?.Invoke("Trap");
+        SpawnerManager.OnEmptySpawnPosition?.Invoke(transform.position, "Trap");
     }
 }
