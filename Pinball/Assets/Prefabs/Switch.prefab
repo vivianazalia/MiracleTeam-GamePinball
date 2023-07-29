@@ -111,3 +111,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d283e8adcbcd694da96442e31dca491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onMaterial: {fileID: 2100000, guid: 37d12818f11fcc3428e93a154af312f6, type: 2}
+  offMaterial: {fileID: 2100000, guid: 575611cbc0c96ff4d894c65527f63e29, type: 2}

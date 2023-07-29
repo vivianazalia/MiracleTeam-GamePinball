@@ -13,9 +13,7 @@ public class LauncherController : MonoBehaviour
     [SerializeField]
     private float maxTimeHold;
 
-    [SerializeField] private bool isHold;
-    [SerializeField] private float force;
-    [SerializeField] private float timeHold;
+    private bool isHold;
 
     private void Start()
     {
@@ -43,8 +41,8 @@ public class LauncherController : MonoBehaviour
     {
         isHold = true;
 
-        force = 0f;
-        timeHold = 0f;
+        float force = 0f;
+        float timeHold = 0f;
 
         while (Input.GetKey(input))
         {
@@ -53,7 +51,6 @@ public class LauncherController : MonoBehaviour
             timeHold += Time.deltaTime;
         }
 
-        Debug.Log(force);
         collider.GetComponent<Rigidbody>().AddForce(Vector3.forward * force);
         isHold = false;
     }
